@@ -1,0 +1,56 @@
+\documentclass{article}
+\usepackage{mathtools}
+\usepackage[british]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{csquotes}
+\usepackage[a4paper,width=150mm,top=25mm,bottom=25mm]{geometry}
+\usepackage{standalone}
+\usepackage{graphicx}
+\usepackage{import}
+\usepackage[backend=biber,doi=false,isbn=false,style=apa,url=false,hyperref=true]{biblatex}
+\DeclareLanguageMapping{british}{british-apa}
+\addbibresource{bibliography.bib}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    citecolor=blue,
+}
+
+\makeatletter
+
+\newrobustcmd*{\parentexttrack}[1]{%
+	\begingroup
+	\blx@blxinit
+	\blx@setsfcodes
+	\blx@bibopenparen#1\blx@bibcloseparen
+	\endgroup}
+
+\AtEveryCite{%
+	\let\parentext=\parentexttrack%
+	\let\bibopenparen=\bibopenbracket%
+	\let\bibcloseparen=\bibclosebracket}
+
+\makeatother
+
+
+\title{Motion in MRI}
+\author{David Henry}
+\date{February 2017}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+\import{Sections/}{introduction}
+
+\section{Motion Artifacts}
+\import{Sections/}{motion_artifacts}
+
+\printbibliography
+
+\end{document}
+
