@@ -9,20 +9,51 @@ The type of motion artifact and its severity depends on the magnitude and type o
 Perhaps the most obvious sign that motion has occurred during a scan is the presence of blurring and ghosts in the reconstructed image. Blurring is the smearing of edges, while ghosting is the presence of repeating image structures, usually in the phase encoding direction. The presence of these artifacts can be understood by reconstructing motion affected k-space data under the assumption that the spin density has not moved.
 
 \subsubsection*{Homogeneous Transformations}
-Following the approach of Zahneisen and Ernst \parencite*{Zahneisen2016}, a homogeneous coordinate formalism will be used to describe motion-affected k-space. Homogeneous coordinates are widely used in computer vision, and allow for the concise representation of projective, affine and rigid body transformations. A point in three dimensional space $\textbf{r} = \begin{bmatrix} x,&y,&z\end{bmatrix}^{T}$ is represented in homogeneous coordinates as the augmented vector $\tilde{\textbf{r}} = \begin{bmatrix}x,&y,&z,&1\end{bmatrix}^{T}$. This augmented vector can then be operated on by a $4\times4$ homogeneous matrix \textbf{A}.
+Following the approach of Zahneisen and Ernst \parencite*{Zahneisen2016}, a homogeneous coordinate formalism will be used to describe motion-affected k-space. Homogeneous coordinates are widely used in computer vision, and allow for the concise representation of projective, affine and rigid body transformations. A point in three dimensional space $\textbf{r} = \begin{bmatrix} x,&y,&z\end{bmatrix}^{T}$ is represented in homogeneous coordinates by the augmented vector $\tilde{\textbf{r}} = \begin{bmatrix}x,&y,&z,&1\end{bmatrix}^{T}$. This augmented vector can then be operated on by a $4\times4$ homogeneous matrix \textbf{A}.
 \begin{equation}
 	\label{eq1}
 	\tilde{\textbf{r}}^{'} = \textbf{A}\tilde{\textbf{r}}
 \end{equation}
-For our purposes, \textbf{A} represents either a rigid body or affine (shearing, scaling, as well as rigid body) transformation. Rigid body, or bulk motion is characterised by six degrees of freedom (three for translation, and three for rotation). The homogeneous matrix representation of this type of motion can be written as $\textbf{A} = \begin{bmatrix} \textbf{R} & \textbf{d} \\ 0 & 1 \end{bmatrix}$, where \textbf{R} is $3\times3$ rotation matrix and \textbf{d} is a $3\times1$ translation vector. It can thus be verified that Eq. (\ref{eq1}) is the homogeneous representation of $\textbf{r}^{'} = \textbf{R} \textbf{r} + \textbf{d}$.
+For our purposes, \textbf{A} represents either a rigid body or affine (shearing, scaling, as well as rigid body) transformation. Rigid body, or bulk motion is characterised by six degrees of freedom (three for translation, and three for rotation). The homogeneous matrix representation of this type of motion can be written as $\textbf{A} = \begin{bmatrix} \textbf{R} & \textbf{d} \\ \textbf{0} & 1 \end{bmatrix}$, where \textbf{R} is $3\times3$ rotation matrix and \textbf{d} is a $3\times1$ translation vector. It can thus be verified that Eq. (\ref{eq1}) is the homogeneous representation of $\textbf{r}^{'} = \textbf{R} \textbf{r} + \textbf{d}$.
 \par
 Affinities are a higher order group of transformations than rigid body transforms, and require twelve degrees of freedom to characterise. They can also be represented as a $4\times4$ matrix \textbf{A}, but with the $3\times3$ matrix \textbf{R} from the rigid body case replaced with a matrix \textbf{S}, which has the same dimensions. \textbf{S} contains not only the parameters that describe rotation, but also shearing and scaling.
 \par
-\textit{In vivo} motion can be quite complex, and in the case of respiratory or cardiac motion, time-dependent deformation fields would be needed for a full characterisation. In practice however, this complete description is often not necessary, and an affine model (with other restrictions) is sufficient. Rigid body transformations are used to model head motion in neural imaging \parencite{Godenschweger2016}, while both rigid body and affine models have been used to describe motion in cardiac and abdominal imaging \parencite{Nehrke2005,Manke2002,Pipe1999}. While affine models for \textit{in vivo} motion are quite useful, they do not take into account other sources of motion such as pulsed flow. In abdominal and chest imaging, it is also important to keep in mind that the affine model is only useful as a local approximation for a region of interest, and generally not applicable to the entire field of view.
+\textit{In vivo} motion can be quite complex, such that time-dependent deformation fields would be needed for its full characterisation. In practice however, this complete description is often not necessary, and an affine model (with other restrictions) is sufficient. Rigid body transformations are used to model head motion in neural imaging \parencite{Godenschweger2016}, and affine (as well as rigid body) models have been used to describe motion in cardiac and abdominal imaging \parencite{Nehrke2005,Manke2002,Pipe1999}. While affine models for \textit{in vivo} motion are quite useful, they do not take into account other sources of motion such as pulsed flow. In abdominal and chest imaging, it is also important to keep in mind that the affine model is only useful as a local approximation for a region of interest, and generally not applicable to the entire field of view.
 \par
 Nevertheless, in the following investigation we will assume that the points or voxels $\tilde{\textbf{r}}$ in the imaging volume are undergoing motion that can be modelled as an affine transformation. The movement of $\tilde{\textbf{r}}$ to a new position $\tilde{\textbf{r}}^{'}$ can therefore be described by Eq. (\ref{eq1}).
 
 \subsubsection*{Motion and K-space}
+
+Acquired signal can be written as
+\begin{equation}
+	\label{eq2}
+	s(\tilde{\textbf{k}}) = \int d\textbf{V} \rho\left(\tilde{\textbf{r}}\right)\operatorname{e}^{-i2\pi\tilde{\textbf{r}}^{T}\tilde{\textbf{k}}}
+\end{equation}
+where $\tilde{\textbf{r}}$ and $\tilde{\textbf{k}}$ are homogeneous coordinate vectors. The vector $\tilde{\textbf{k}} = \begin{bmatrix}k_{x},&k_{y},&k_{z},&\varphi\end{bmatrix}^{T}$, with $\varphi$ representing an initial phase.
+\par
+Let $\tilde{\textbf{r}}_0$ and $\tilde{\textbf{k}}_0$ represent the position and k-space vectors in the presence of no motion. Now assume that some movement occurs, such that $\tilde{\textbf{r}}_0$ is transformed to $\tilde{\textbf{r}}$ by the affine matrix \textbf{A}, hence $\tilde{\textbf{r}} = \textbf{A}\tilde{\textbf{r}}_0$. The phase factor $\Phi$ is therefore
+\begin{equation} \label{eq3}
+	\begin{split}
+		\Phi & = \tilde{\textbf{r}}^T\tilde{\textbf{k}}_0 \\ 
+			 & = (\textbf{A}\tilde{\textbf{r}}_0)^T\tilde{\textbf{k}}_0
+		     = {\tilde{\textbf{r}}_0}^T\textbf{A}^T\tilde{\textbf{k}}_0 \\
+		     & = {\tilde{\textbf{r}}_0}^T\tilde{\textbf{k}}.
+	\end{split}
+\end{equation}
+Here, $\tilde{\textbf{k}}$ is the transformed, homogeneous k-space vector.  Eq. (\ref{eq3}) is valid under the assumption that no motion occurs during the millisecond intervals where gradient spatial encoding takes place. In the case where \textbf{A} is a rigid body transformation,
+\begin{equation} \label{eq4}
+	\begin{split}
+		\tilde{\textbf{k}} & = \textbf{A}^T\tilde{\textbf{k}}_0
+		= \begin{bmatrix}\textbf{R}^T & \textbf{0} \\ \textbf{d}^T & 1\end{bmatrix}\begin{bmatrix}k_{0x}\\k_{0y}\\k_{0z}\\\varphi_0\end{bmatrix}\\
+		& = \begin{bmatrix}k_{x}\\k_{y}\\k_{z}\\\Delta_{x}k_{0x} + \Delta_{y}k_{0y} + \Delta_{z}k_{0z} + \varphi_0\end{bmatrix}.
+	\end{split}
+\end{equation}
+From Eq. (\ref{eq4}) we can see that rigid body motion results in a rotation of the original k-space coordinates by $\textbf{R}^T$, and adds a phase term ($\Delta_{x}k_{0x} + \Delta_{y}k_{0y} + \Delta_{z}k_{0z}$) to the initial value $\varphi$. Generality under an affine transformation is not lost here, $\textbf{R}^T$ would simply be replaced by $\textbf{S}^T$. This well known result, that object rotations cause rotations in k-space and that translations cause a linear phase shift, can be succinctly represented:
+\begin{equation} \label{eq5}
+s(\tilde{\textbf{k}}) = \int d\textbf{V} \rho\left(\tilde{\textbf{r}}_0\right)\operatorname{e}^{-i2\pi{\tilde{\textbf{r}}_0}^{T}\textbf{A}^T\tilde{\textbf{k}}_0}.
+\end{equation}
+\par
+K-space acquisition is not instant, and therefore motion occurring during the scan can cause inconsistencies in the k-space data. Just how much of the data is inconsistent depends on the data acquisition method and the temporal extent of the motion. In spin echo sequences for example, single lines in k-space may be phase shifted and rotated with respect to one another due to motion. On the other hand, inconsistencies across slices, rather than lines, will be present in faster sequences like EPI. Slow, continuous motion generally causes blurring in the reconstructed image (Fig. 1), whereas more sudden motions can cause ghosting depending on magnitude. The timing of these sudden motions is also important, as motion affecting the centre (low frequency components) of k-space causes more severe artifacts than if the peripheries are affected.
 
 \subsection{Signal and Contrast Corruption}
 
