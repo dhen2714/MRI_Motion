@@ -2,9 +2,9 @@
 
 \begin{document}
 
-The type of motion artifact and its severity depends on the magnitude and type of motion, as well as its temporal relation to the data acquisition method. In the following discussion, motion induced blurring and ghosting will be covered first, with other signal deterioration effects such as spin de-phasing covered in the second subsection. Blurring and ghosting artifacts due to motion are generally caused by spatial encoding inconsistencies, while loss of signal contrast and aberrations in signal intensity are related to how motion affects signal generation before and during acquisition.
+The type of motion artifact and its severity depends on the magnitude and type of motion, as well as its temporal relation to the pulse sequence. This makes a general description of motion effects quite difficult, as the same type of motion may have different effects across scans. In the following discussion, a broad distinction will be made between \textit{inter-view} and \textit{intra-view} effects. Inter-view effects are the result of movement during the latent periods between data acquisition and the following excitation. For motion that occurs during data acquisition (when spatial encoding gradients are switched on), intra-view effects will be present.
 
-\subsection{Blurring and Ghosting}
+\subsection{Inter-view Effects}
 
 Perhaps the most obvious sign that motion has occurred during a scan is the presence of blurring and ghosts in the reconstructed image. Blurring is the smearing of edges, while ghosting is the presence of repeating image structures, usually in the phase encoding direction. The presence of these artifacts can be understood by reconstructing motion affected k-space data under the assumption that the spin density has not moved.
 
