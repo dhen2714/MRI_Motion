@@ -56,12 +56,16 @@ s(\tilde{\textbf{k}}) = \int d\textbf{V} \rho\left(\tilde{\textbf{r}}_0\right)\o
 \end{equation}
 \par
 K-space acquisition is sequential, rather than instantaneous, and thus the k-space coordinates have an implicit time dependence. The motion is also a function of time, \textbf{A(t)}. Depending on the acquisition trajectory and \textbf{A(t)}, different portions of k-space will be rotated and phase-shifted relative to other parts. For Cartesian k-space trajectories, these inconsistencies occur across lines in the phase encoding direction. Generally speaking, if these displacements are smooth (such as in the case of slow, continuous motion), blurring will be present in the reconstructed image. Periodic displacements and large rotations can cause periodic phase modulations and large gaps in the k-space data, which results in ghosting.
+\par
+On inspection of Eq. (\ref{eq5}), it is clear that a possible fix for bulk motion could involve multiplying the acquired data by $\textbf{A}^{-T}$ to 'undo' its effects. Another approach would be to update the gradient directions and receive coil phase in real time. These ideas form the basis of retrospective and prospective motion correction, which will be discussed later.
 
-\subsubsection*{Signal Corruption}
-Motion between excitations can have effects other than blurring and ghosting.
+\subsubsection*{Spin History}
+Motion between excitations can have effects other than blurring and ghosting. Spin history artifacts can arise in regions where $TR$ is comparable to or less than $T_1$. In this case, out of plane motion causes regions within the object being scanned to be irradiated non-uniformly. Voxels which may have otherwise identical contrast properties may produce vastly different signals because of their different excitation history. This is due to the longitudinal magnetisation not fully recovering, causing measured signal to vary from excitation to excitation. Spin history effects are especially of concern in fMRI \parencite{Friston1996,Muresan2005}, where brain activation is identified by changes in blood oxygen level dependent (BOLD) signals in the order of 1\%-5\%. Hence even small noise contributions due to motion can lead to false activations. Spin history effects are not corrected by post-processing steps which aim to realign displaced slices and volumes.
 
+\subsubsection*{Field Inhomogeneities}
+Magnetic field inhomogeneities are introduced by local variations in magnetic susceptibility \textit{in vivo}.
 
 \subsection{Intra-view Effects}
-
+In the previous subsection, it was assumed that no movement occurred during the short time intervals in which encoding gradients are turned on.
 
 \end{document}
