@@ -7,7 +7,7 @@ The type of motion artifact and its severity depends on the magnitude and type o
 \begin{figure}[h]
 	\includegraphics[scale=0.7]{Fig1}
 	\centering
-	\caption{During an MRI scan, motion can be classified as happening 'intra-shot' or 'inter-shot'. Intra-shot motion is motion that occurs between RF excitation and data acquisition. The inter-shot time interval is the period of time between excitation pulses when gradients are not switched on, and data is not being encoded or acquired.}
+	\caption{During an MRI scan, motion can be classified as happening `intra-shot' or `inter-shot'. Intra-shot motion is motion that occurs between RF excitation and data acquisition. The inter-shot time interval is the period of time between excitation pulses when gradients are not switched on, and data is not being encoded or acquired. The ratio between these time periods varies depending on pulse sequence.}
 	\label{fig:fig1}
 \end{figure}
 
@@ -97,7 +97,7 @@ In traditional spin echo sequences, $M_0$ is set to zero at the echo time, so th
 \par
 In EPI, nonzero $M_1$ causes ghosting and blurring which is especially pronounced if there is intra-shot motion in the frequency encoding direction. Spiral acquisitions are less susceptible to flow effects, as the sampling trajectory means $M_1$ is quite small near the k-space origin compared to Cartesian sequences \parencite{Irarrazaval1999,Nishimura}. Radial trajectories with projection reconstruction have also been found to be much less susceptible to the effects of flow \parencite{Nishimura1991}.
 \par
-The problem of intra-shot motion is a difficult one, and quite relevant despite the lack of attention it receives compared to inter-shot motion. While gradient moment nulling is quite effective, the presence of higher order moments, pulsatile flow and the fact that it requires additional time within the pulse sequence means that it is not a wholly effective technique. Most of the interest in mitigating the effects of intra-shot motion is due to the effect it has in diffusion imaging. Many motion correction techniques in this area therefore target both intra-scan and inter-scan motion.
+The problem of intra-shot motion is a difficult one, and quite relevant despite the lack of attention it receives compared to inter-shot motion. While gradient moment nulling is quite effective, the presence of higher order moments, pulsatile flow and the fact that it requires additional time within the pulse sequence means that it is not a wholly effective technique. Most of the interest in mitigating the effects of intra-shot motion is due to the effect it has in diffusion imaging. Many motion correction techniques in this area therefore target both intra-shot and inter-shot motion.
 
 \subsection{Summary}
 We have seen how motion causes degradation of quality in MR images. Movement can cause ghosting, blurring, loss of contrast, and artificially strong or weak signals. Depending on the pulse sequence, where the motion occurs and when the motion occurs, the magnitude of these effects may vary.
