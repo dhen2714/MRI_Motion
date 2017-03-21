@@ -2,7 +2,7 @@
 
 \begin{document}
 
-The type of motion artifact and its severity depends on the magnitude and type of motion, as well as its temporal relation to the pulse sequence. This makes a general description of motion effects quite difficult, as the same type of motion may have different effects across scans. In the following discussion, a broad distinction will be made between \textit{inter-shot} and \textit{intra-shot} effects (Fig. \ref{fig:fig1}). Inter-shot effects are the result of movement during the latent periods in the scan between data acquisition and the following excitation (or shot). For motion that occurs between shots and data acquisition, intra-shot effects will be present.
+The type of motion artifact and its severity depends on the magnitude and type of motion, as well as its temporal relation to the pulse sequence. This makes a general description of motion effects quite difficult, as the same type of motion may have different effects across scans. Motion can happen either `inter-shot' or `intra-shot' (Fig. \ref{fig:fig1}). Inter-shot motion occurs during the latent periods in the scan between data acquisition and the following excitation, while intra-shot motion occurs between excitation and data acquisition. 
 
 \begin{figure}[h]
 	\includegraphics[scale=0.7]{Fig1}
@@ -11,9 +11,9 @@ The type of motion artifact and its severity depends on the magnitude and type o
 	\label{fig:fig1}
 \end{figure}
 
-\subsection{Inter-shot Effects}
+\subsection{K-Space}
 
-For many MR sequences, the intra-shot time interval is much smaller than the repetition time, as well as the characteristic time-scales of \textit{in vivo} motion. In this case, it can be assumed that no motion occurs during this period. Rather, the spin density is essentially displaced from one excitation to the next. For inter-shot effects, we will be mainly discussing bulk motion, which is the movement of large structures within the image, or the entire field of view itself. 
+For the following discussion on the effect of motion on k-space, it will be assumed that no intra-shot motion occurs. For many pulse sequences (such as FLASH), TR is much longer than TE, and so inter-shot motion is the main concern. In this case, spin density, and as we will see, k-space is essentially displaced from one excitation to the next, but the signal is otherwise not corrupted (other effects are described in later subsections). The type of motion discussed will be bulk motion, which is the movement of large scale structures within the field of view.
 \par
 Perhaps the most obvious sign that motion has occurred during a scan is the presence of blurring and ghosts in the reconstructed image. Blurring is the smearing of edges, while ghosting is the presence of repeated structures. Both of these artifacts can arise due to inconsistencies in k-space caused by bulk motion. Following the approach of Zahneisen and Ernst \parencite*{Zahneisen2016}, a homogeneous coordinate formalism will be used to analyse acquired k-space when motion is present.
 
@@ -31,7 +31,7 @@ Affinities are a higher order group of transformations than rigid body transform
 \par
 Nevertheless, in the following investigation we will assume that the points or voxels $\tilde{\textbf{r}}_0$ in the imaging volume are undergoing motion that can be modelled as an affine transformation. The movement of $\tilde{\textbf{r}}_0$ to a new position $\tilde{\textbf{r}}$ can therefore be described by Eq. (\ref{eq1}).
 
-\subsubsection{Motion and K-space Inconsistencies}
+\subsubsection{Motion Affected Sampling}
 
 Acquired signal in MRI can be written as
 \begin{equation}
@@ -66,13 +66,7 @@ K-space acquisition is sequential, rather than instantaneous, and thus the k-spa
 \par
 When k-space data is acquired under the assumption of no motion, correction may be possible, provided the motion \textbf{A(t)} is known. This is done by transforming the points $\tilde{\textbf{k}}_0$ by $\textbf{A(t)}^T$, such that the measured signal value is correctly mapped to position in k-space. Another approach would be to scrap the `no motion' assumption, and update our data collection algorithm in real time. The former method is the principle behind `retrospective motion correction', while the latter approach is `prospective motion correction'. Both of these will be discussed in Section \ref{Section4}.
 
-\subsubsection{Spin History}
-Motion between excitations can have effects other than blurring and ghosting. Spin history artifacts can arise in regions where $TR$ is comparable to or less than $T_1$. Out of plane motion causes slices within the object being scanned to be irradiated non-uniformly. Voxels which may have otherwise identical contrast properties may produce varying signals depending on past excitations. This is due to the longitudinal magnetisation not fully recovering, causing measured signal to vary from excitation to excitation. Spin history effects are especially of concern in fMRI \parencite{Friston1996,Muresan2005}, where brain activation is identified by changes in blood oxygen level dependent (BOLD) signals in the order of 1\%-5\%. Hence even small noise contributions due to motion can lead to false activations. Spin history effects are not corrected by post-processing steps which aim to realign displaced slices and volumes.
-
-\subsubsection{B$_0$ Field Effects}
-
-
-\subsection{Intra-shot Effects}
+\subsection{Intra-shot Motion}
 In the previous subsection, it was assumed that no movement occurred during the intra-shot period, and so the object was displaced from excitation to excitation. Here, we consider the possibility of motion during the interval between excitation and data acquisition. In other words, spins are moving while gradients are turned on. Intra-shot translations along gradient directions cause well known `flow effects' \parencite{Barth1985}. While this can be the source of contrast in diffusion weighted imaging, additional intra-scan bulk motion is a severe problem in this modality \parencite{LeBihan2006}.
 \par
 Intra-shot effects can be understood through the concept of gradient moments. Spatial information is encoded in the phase of the precessing magnetization through the use of magnetic field gradients. Phase induced is therefore dependent on position:
@@ -98,6 +92,14 @@ In traditional spin echo sequences, $M_0$ is set to zero at the echo time, so th
 In EPI, nonzero $M_1$ causes ghosting and blurring which is especially pronounced if there is intra-shot motion in the frequency encoding direction. Spiral acquisitions are less susceptible to flow effects, as the sampling trajectory means $M_1$ is quite small near the k-space origin compared to Cartesian sequences \parencite{Irarrazaval1999,Nishimura}. Radial trajectories with projection reconstruction have also been found to be much less susceptible to the effects of flow \parencite{Nishimura1991}.
 \par
 The problem of intra-shot motion is a difficult one, and quite relevant despite the lack of attention it receives compared to inter-shot motion. While gradient moment nulling is quite effective, the presence of higher order moments, pulsatile flow and the fact that it requires additional time within the pulse sequence means that it is not a wholly effective technique. Most of the interest in mitigating the effects of intra-shot motion is due to the effect it has in diffusion imaging. Many motion correction techniques in this area therefore target both intra-shot and inter-shot motion.
+
+\subsection{Spin History}
+Motion between excitations can have effects other than blurring and ghosting. Spin history artifacts can arise in regions where $TR$ is comparable to or less than $T_1$. Out of plane motion causes slices within the object being scanned to be irradiated non-uniformly. Voxels which may have otherwise identical contrast properties may produce varying signals depending on past excitations. This is due to the longitudinal magnetisation not fully recovering, causing measured signal to vary from excitation to excitation. Spin history effects are especially of concern in fMRI \parencite{Friston1996,Muresan2005}, where brain activation is identified by changes in blood oxygen level dependent (BOLD) signals in the order of 1\%-5\%. Hence even small noise contributions due to motion can lead to false activations. Spin history effects are not corrected by post-processing steps which aim to realign displaced slices and volumes.
+
+\subsection{RF Field}
+
+\subsection{B$_0$ Field}
+
 
 \subsection{Summary}
 We have seen how motion causes degradation of quality in MR images. Movement can cause ghosting, blurring, loss of contrast, and artificially strong or weak signals. Depending on the pulse sequence, where the motion occurs and when the motion occurs, the magnitude of these effects may vary.
