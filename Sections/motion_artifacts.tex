@@ -17,7 +17,7 @@ For many MR sequences, the intra-shot time interval is much smaller than the rep
 \par
 Perhaps the most obvious sign that motion has occurred during a scan is the presence of blurring and ghosts in the reconstructed image. Blurring is the smearing of edges, while ghosting is the presence of repeated structures. Both of these artifacts can arise due to inconsistencies in k-space caused by bulk motion. Following the approach of Zahneisen and Ernst \parencite*{Zahneisen2016}, a homogeneous coordinate formalism will be used to analyse acquired k-space when motion is present.
 
-\subsubsection*{Homogeneous Representation of Bulk Motion}
+\subsubsection{Homogeneous Representation of Bulk Motion}
 Homogeneous coordinates are widely used in computer vision, and allow for the concise representation of projective, affine and rigid body transformations. A point in three dimensional space $\textbf{r}_0 = \begin{bmatrix} x,&y,&z\end{bmatrix}^{T}$ is represented in homogeneous coordinates by the augmented vector $\tilde{\textbf{r}}_0 = \begin{bmatrix}x,&y,&z,&1\end{bmatrix}^{T}$. This augmented vector can then be operated on by a $4\times4$ homogeneous matrix \textbf{A}.
 \begin{equation}
 	\label{eq1}
@@ -31,7 +31,7 @@ Affinities are a higher order group of transformations than rigid body transform
 \par
 Nevertheless, in the following investigation we will assume that the points or voxels $\tilde{\textbf{r}}_0$ in the imaging volume are undergoing motion that can be modelled as an affine transformation. The movement of $\tilde{\textbf{r}}_0$ to a new position $\tilde{\textbf{r}}$ can therefore be described by Eq. (\ref{eq1}).
 
-\subsubsection*{Motion and K-space Inconsistencies}
+\subsubsection{Motion and K-space Inconsistencies}
 
 Acquired signal in MRI can be written as
 \begin{equation}
@@ -64,13 +64,13 @@ s(\tilde{\textbf{k}}) = \int d\textbf{V} \rho\left(\tilde{\textbf{r}}_0\right)\o
 \par
 K-space acquisition is sequential, rather than instantaneous, and thus the k-space coordinates have an implicit time dependence. The motion is also a function of time, \textbf{A(t)}. Depending on the acquisition trajectory and \textbf{A(t)}, $\tilde{\textbf{k}}$ may be quite displaced from the `motion-free' $\tilde{\textbf{k}}_0$, and signal values at $\tilde{\textbf{k}}$ will have no correspondence with those at $\tilde{\textbf{k}}_0$. If \textbf{A(t)} is unknown or not accounted for, this misregistration of k-space data can cause inconsistencies. For Cartesian k-space trajectories, these inconsistencies occur across lines in the phase encoding direction. Generally speaking, if these displacements are small from line to line, (such as in the case of slow, continuous motion), blurring will be present in the reconstructed image. Frequent, periodic displacements and large rotations can cause periodic phase modulations and large inconsistencies in the k-space data, which results in ghosting.
 \par
-When k-space data is acquired under the assumption of no motion, correction may be possible, provided the motion \textbf{A(t)} is known. This is done by transforming the points $\tilde{\textbf{k}}_0$ by $\textbf{A(t)}^T$, such that the measured signal value is correctly mapped to position in k-space. Another approach would be to scrap the `no motion' assumption, and update our data collection algorithm in real time. The former method is the principle behind `retrospective motion correction', while the latter approach is `prospective motion correction'. Both of these will be discussed in Section 4.
+When k-space data is acquired under the assumption of no motion, correction may be possible, provided the motion \textbf{A(t)} is known. This is done by transforming the points $\tilde{\textbf{k}}_0$ by $\textbf{A(t)}^T$, such that the measured signal value is correctly mapped to position in k-space. Another approach would be to scrap the `no motion' assumption, and update our data collection algorithm in real time. The former method is the principle behind `retrospective motion correction', while the latter approach is `prospective motion correction'. Both of these will be discussed in Section \ref{Section4}.
 
-\subsubsection*{Spin History}
+\subsubsection{Spin History}
 Motion between excitations can have effects other than blurring and ghosting. Spin history artifacts can arise in regions where $TR$ is comparable to or less than $T_1$. Out of plane motion causes slices within the object being scanned to be irradiated non-uniformly. Voxels which may have otherwise identical contrast properties may produce varying signals depending on past excitations. This is due to the longitudinal magnetisation not fully recovering, causing measured signal to vary from excitation to excitation. Spin history effects are especially of concern in fMRI \parencite{Friston1996,Muresan2005}, where brain activation is identified by changes in blood oxygen level dependent (BOLD) signals in the order of 1\%-5\%. Hence even small noise contributions due to motion can lead to false activations. Spin history effects are not corrected by post-processing steps which aim to realign displaced slices and volumes.
 
-\subsubsection*{Field Inhomogeneities}
-Magnetic field inhomogeneities are introduced by local variations in magnetic susceptibility \textit{in vivo}.
+\subsubsection{B$_0$ Field Effects}
+
 
 \subsection{Intra-shot Effects}
 In the previous subsection, it was assumed that no movement occurred during the intra-shot period, and so the object was displaced from excitation to excitation. Here, we consider the possibility of motion during the interval between excitation and data acquisition. In other words, spins are moving while gradients are turned on. Intra-shot translations along gradient directions cause well known `flow effects' \parencite{Barth1985}. While this can be the source of contrast in diffusion weighted imaging, additional intra-scan bulk motion is a severe problem in this modality \parencite{LeBihan2006}.

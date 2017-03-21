@@ -5,7 +5,7 @@
 \subsection{Motion Estimation}
 In order to correct for motion, it must first be accurately characterised. Restricting ourselves mainly to head movements, the focus will be on rigid body motion. Motion information can be obtained by the MR scanner itself, through `navigator-based' estimation. Alternatively, external hardware can be used to find motion parameters. While navigator-based estimation has the obvious advantage of not needing additional hardware to the MR scanner, it places restrictions on the pulse sequence which may rule out its use in some situations. These considerations will be discussed in further detail below.
 
-\subsubsection*{Navigator-based Estimation}
+\subsubsection{Navigator-based Estimation}
 Navigator based estimation can be further broken down into two categories: navigator echoes and self-navigators. Navigator echoes are additional pulse sequences that are inserted into the host sequence. Self-navigators on the other hand, are specially designed k-space trajectories that oversample portions of k-space in order to extract motion information.
 \paragraph{Navigator echoes:}
 The navigator echo (NAV) was first introduced by Ehman and Felmlee \parencite*{Ehman1989}. In this work, an additional $\pi$ pulse was inserted into a spin echo sequence, with a corresponding readout in the frequency encoding dimension. The NAV readout was not phase encoded, but could be inverse Fourier transformed and compared with a reference NAV image to determine if bulk motion in the frequency encoding dimension had occurred. The method presented here could only measure translations in one dimension, and assumed the whole FOV moved in unison, but nevertheless was an important step in motion correction.
@@ -26,8 +26,8 @@ In addition to k-space navigators and image-space navigators, there has also bee
 
 
 \paragraph{Self-navigation:}
- 
-\subsubsection*{External Hardware-based Estimation}
+
+\subsubsection{External Hardware-based Estimation}
 
 \subsection{Retrospective Motion Correction}
 
