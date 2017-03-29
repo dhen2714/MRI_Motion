@@ -7,6 +7,7 @@ In order to correct for motion, it must first be accurately characterised. Restr
 
 \subsubsection{Navigator-based Estimation}
 Navigator based estimation can be further broken down into two categories: navigator echoes and self-navigators. Navigator echoes are additional pulse sequences that are inserted into the host sequence. Self-navigators on the other hand, are specially designed k-space trajectories that oversample portions of k-space in order to extract motion information.
+
 \paragraph{Navigator echoes:}
 The navigator echo (NAV) was first introduced by Ehman and Felmlee \parencite*{Ehman1989}. In this work, an additional $\pi$ pulse was inserted into a spin echo sequence, with a corresponding readout in the frequency encoding dimension. The NAV readout was not phase encoded, but could be Fourier transformed and compared with a reference NAV image to determine if bulk motion in the frequency encoding dimension had occurred. The method presented here could only measure translations in one dimension, and assumed the whole FOV moved in unison, but nevertheless was an important step in motion correction.
 \par
@@ -24,8 +25,12 @@ A natural extension to the idea of acquiring three orthogonal images is acquirin
 \par 
 In addition to k-space navigators and image-space navigators, there has also been interest in non-encoded free induction decay (FID) navigators \parencite{Waszak2016,MRM:MRM22797}. FID navigators are ultrashort ($<$100 $\mu$s) pulses that are not gradient encoded, meaning they can fit quite comfortably into most sequences. Because they are not encoded, the signals themselves contain no spatial information, and so are not currently used to measure motion, but rather to simply detect it. Motion causes changes in the FID signal received by each RF coil. This can then be compared to a `motion-free' reference to detect motion, in which case a separate navigator (like the ones discussed previously) is inserted into the sequence. The use of FID navigators can thus decrease scan times by facilitating selective use of navigator echoes. 
 
-
 \paragraph{Self-navigation:}
+Some imaging sequences are said to be `self-navigating'. These sequences can be likened to a `bootstrap' process, in which the existing, collected data is used to estimate motion, rather than relying on inserted navigator echoes. This is achieved by oversampling some area of k-space. The most ubiquitous of these is PROPELLER (Periodically Rotated Overlapping Parallel Lines with Enhanced Reconstruction), developed by Pipe \parencite*{Pipe1999}. The method has found widespread clinical use, and is offered by most vendors (under different trade names) as a `motion robust' sequence.
+\par
+In PROPELLER, k-space is sampled in rectangular strips that are rotated about the centre, visually resembling the rotating blade of a propeller. Each strip comprises of lines acquired using a Cartesian sequence (such as FSE or EPI), but due to the fact that each strip is rotated relative to the other, PROPELLER is usually classed as a radial sequence. After all acquisition cycles, a central disc in k-space has been sampled by each strip. Using this redundant data, first rotations, then translations can be estimated and corrected for.
+\par
+The obvious advantage PROPELLER has over navigator echoes is that the data is used to correct itself, and thus the motion information is more `relevant' or up to date. However, this motion information from oversampling comes at the cost of increased scan time, in this case by a factor of $\pi/2$ \parencite{Pipe1999}.
 
 \subsubsection{External Hardware-based Estimation}
 
