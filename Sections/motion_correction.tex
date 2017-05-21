@@ -67,9 +67,13 @@ Another consideration when rotating k-space data is regridding. In order to expl
 While motion information is often derived from methods described in the previous section, motion estimation can also be integrated into the post-processing step. This is termed `autofocusing', and does not require prior motion estimates, though they can be provided for improved processing speed. Motion is estimated by applying transformations to the data iteratively and optimizing a metric such as image entropy \parencite{Atkinson1997,Atkinson1999,McGee2000} or gradient entropy \parencite{Loktyushin2013}. These methods are very computationally intensive, especially without prior motion estimates from navigators or tracking data.
 \par
 
-
-
- 
 \subsection{Prospective Motion Correction}
+As its name suggests, prospective motion correction aims to compensate for subject motion during the scan. This is achieved by real-time updates of gradient and RF fields in response to detected motion, in order to keep the spatial relationship between the subject and FOV constant. 
+
+\begin{itemize}
+	\item Bit of history surrounding PMC.
+	\item Advantages
+	\item Challenges
+\end{itemize}
 
 \end{document}
