@@ -2,7 +2,7 @@
 
 \begin{document}
 	
-\subsection{Motion Estimation}
+\subsection{Motion Estimation} \label{Subsection4.1}
 In order to correct for motion, it must first be accurately characterised. Restricting ourselves mainly to head movements, the focus will be on rigid body motion. Motion information can be obtained by the MR scanner itself, through `navigator-based' estimation. Alternatively, external hardware can be used to find motion parameters. While navigator-based estimation has the obvious advantage of not needing additional hardware to the MR scanner, it places restrictions on the pulse sequence which may rule out its use in some situations. These considerations will be discussed in further detail below.
 
 \subsubsection{Navigator-based Estimation}
@@ -68,15 +68,23 @@ While motion information is often derived from methods described in the previous
 \par
 
 \subsection{Prospective Motion Correction}
-As its name suggests, prospective motion correction aims to compensate for subject motion during the scan. This is achieved by real-time updates of gradient and RF fields in response to detected motion, in order to keep the spatial relationship between the subject and FOV constant. Mathematically, it can be described by pre-multiplying the motion affected, augmented k-space vector $\tilde{\textbf{k}}$ (see Section \ref{Section212}) by $\textbf{A}^{-T}$, where \textbf{A} is the measured motion. 
+As its name suggests, prospective motion correction (PMC) aims to compensate for subject motion during the scan. This is achieved by real-time updates of gradient and RF fields in response to detected motion, in order to keep the spatial relationship between the subject and FOV constant. Mathematically, it can be described by pre-multiplying the motion affected, augmented k-space vector $\tilde{\textbf{k}}$ (see Section \ref{Section212}) by $\textbf{A}^{-T}$, where \textbf{A} is the measured motion. 
 \par
-The first published example of this approach for head motion was the study by Lee et al. \parencite*{Lee1996}. Motion between slice acquisitions in fMRI was prospectively compensated for by adjusting the slice location, with inserted NAV echoes providing motion information along the axial direction. This method was later built upon to correct for both through-plane and in-plane rotational motion with the use of oNavs \parencite{Lee1998}.
-
+The first published example of this approach for head motion was a study by Lee et al. \parencite*{Lee1996}. Motion between slice acquisitions in fMRI was prospectively compensated for by adjusting the slice location, with inserted NAV echoes providing motion information along the axial direction. This method was later built upon to correct for both through-plane and in-plane rotational motion with the use of oNavs \parencite{Lee1998}. Full six DOF PMC was then shown to be successful with motion estimates obtained from oNavs \parencite{Ward2000} and sNavs \parencite{Welch2001}, active markers \parencite{Derbyshire1998}, image registration \parencite{Thesen2000} and optical cameras \parencite{Zaitsev2006a}.
+\par
+Within the last decade, interest in PMC has remained strong. Advancements have mainly come in the form of integrating more accurate and convenient methodologies for motion estimation (see \ref{Subsection4.1}). There are a few reasons why PMC is attractive:
 
 \begin{itemize}
-	\item Early papers on PMC.
-	\item Advantages
-	\item Challenges
+	\item It is a general approach that can be applied to not only most imaging sequences (when external tracking is used), but spectroscopy as well. 
+	\item Sampling density remains uniform. One of the challenges for retrospective motion correction was dealing with the gaps in k-space that resulted from rotational motion. Prospective motion correction avoids this issue as the imaging FOV is kept constant throughout the scan. 
+	\item The ability to account for certain effects that cannot be corrected retrospectively, namely spin history effects \parencite{Yancey2011} and signal dropouts in DWI \parencite{Herbst2012}.
+	\item Images available without delay. Retrospective methods can be computationally intensive, and can introduce an unwanted delay in reconstructing a usable image after data acquisition.
 \end{itemize}
+\par
+Despite these advantages and being an active area of research, several challenges must be addressed before PMC can be implemented for routine clinical use. Perhaps the greatest risk posed by the method is its potential to corrupt otherwise useful data. Once a given scan is committed to having PMC being performed on it, jittery or erroneous motion estimates can induce gradient or RF field changes that introduce artifacts, even when no motion is present. In the case of jittery motion estimates or erroneous calibration, combining PMC with retrospective methods has shown to be somewhat successful \parencite{Aksoy2012}, given that the two methods are not mutually exclusive.
+\par
+In a similar vein to the problem above, it can be difficult to demonstrate the benefit of PMC, given the lack of an `uncorrected' dataset when the method is applied. One potential solution this problem which is perhaps only applicable to a research setting is to carry out two scans on the same subject - one with motion and PMC applied, and the other with no motion but with the same gradient and RF updates as the previous scan \parencite{Herbst2012}. Artifacts introduced by applying PMC to a stationary subject in the second scan would therefore simulate the expected motion artifacts in the first scan had PMC not been applied. Another interesting approach to the same problem taken by Zahneisen et al. \parencite*{Zahneisen2016a} was to apply retrospective motion correction to `de-correct' the corrections applied by PMC, which provided an extra dataset for comparison.
+\par
+
 
 \end{document}

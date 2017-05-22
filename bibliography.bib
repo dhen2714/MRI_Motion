@@ -1147,7 +1147,7 @@ year = {2006}
 }
 @article{Atkinson2003,
 	abstract = {Patient rotational motion during a scan causes the k-space sampling to be both irregular and undersampled. Conventional regridding requires an estimate of the sampling density at each measured point and is not strictly consistent with sampling theory. Here, a 2D problem is converted to a series of 1D regriddings by exact interpolation along the measured readouts. Each 1D regridding, expressed in matrix form, requires a matrix inversion to gain an exact solution. Undersampled regions make the matrix ill-conditioned but summing the matrix columns (without inversion) indicates the undersampled regions. The missing data could be reacquired, but in this study it is estimated using a Delaunay triangle-based linear interpolation on the original 2D data. The matrix conditioning is improved, leading to images with reduced artifacts compared to other regridding schemes. Furthermore, there is no requirement to estimate a density compensation function at each of the measured points.},
-	author = {Atkinson, David and Hill, Derek L G},
+	author = {Atkinson, D and Hill, Derek L G},
 	doi = {10.1002/mrm.10333},
 	file = {:C$\backslash$:/Users/dhen2714/Downloads/Atkinson{\_}et{\_}al-2003-Magnetic{\_}Resonance{\_}in{\_}Medicine.pdf:pdf},
 	isbn = {0740-3194 (Print) 0740-3194 (Linking)},
@@ -1210,7 +1210,7 @@ year = {2006}
 }
 @article{Atkinson1999,
 	abstract = {Patient motion during the acquisition of a magnetic resonance image can cause blurring and ghosting artifacts in the image. This paper presents a new post-processing strategy that can reduce artifacts due to in-plane, rigid-body motion in times comparable to that required to re-scan a patient. The algorithm iteratively determines unknown patient motion such that corrections for this motion provide the best image quality, as measured by an entropy-related focus criterion. The new optimization strategy features a multi-resolution approach in the phase-encode direction, separate successive one-dimensional searches for rotations and translations, and a novel method requiring only one re-gridding calculation for each rotation angle considered. Applicability to general rigid-body in-plane rotational and translational motion and to a range of differently weighted images and k-space trajectories is demonstrated. Motion artifact reduction is observed for data from a phantom, volunteers, and patients.},
-	author = {Atkinson, David and Hill, Derek L G and Stoyle, Peter N R and Summers, Paul E. and Clare, Stuart and Bowtell, Richard and Keevil, Stephen F.},
+	author = {Atkinson, D and Hill, Derek L G and Stoyle, Peter N R and Summers, Paul E. and Clare, Stuart and Bowtell, Richard and Keevil, Stephen F.},
 	doi = {10.1002/(SICI)1522-2594(199901)41:1<163::AID-MRM23>3.0.CO;2-9},
 	file = {:C$\backslash$:/Users/dhen2714/AppData/Local/Mendeley Ltd./Mendeley Desktop/Downloaded/Atkinson et al. - 1999 - Automatic compensation of motion artifacts in MRI.pdf:pdf},
 	isbn = {1522-2594},
@@ -1285,5 +1285,84 @@ year = {1996}
 	title = {{A prospective approach to correct for inter-image head rotation in FMRI}},
 	volume = {39},
 	year = {1998}
+}
+@article{Derbyshire1998,
+	abstract = {An MR-based method for tracking subject motion is presented. The technique identifies subject motion from the three-dimensional positions of three small samples attached to the subject in a fixed, triangular configuration. The updated positions of these samples relative to their initial positions determine a rigid body transformation. Applied to the MRI scan prescription via adaptive feedback controls, this transformation yields an updated MRI scan plane that tracks the prescribed imaging section as the subject moves. The scan-plane tracking procedure is demonstrated experimentally for two-dimensional imaging of a standard imaging phantom and the head of a human subject. Sets of images were acquired sequentially, with motion (translations and/or rotations) introduced between image frames. The scan-plane tracking system provides well registered image slices of the same section, adaptively compensating for the subject motion.},
+	author = {Derbyshire, J. Andrew and Wright, Graham A. and Henkelman, R. Mark and Hinks, R. Scott},
+	doi = {10.1002/jmri.1880080423},
+	file = {:C$\backslash$:/Users/dhen2714/Downloads/Derbyshire{\_}et{\_}al-1998-Journal{\_}of{\_}Magnetic{\_}Resonance{\_}Imaging.pdf:pdf},
+	isbn = {1053-1807 (Print)$\backslash$r1053-1807 (Linking)},
+	issn = {10531807},
+	journal = {Journal of Magnetic Resonance Imaging},
+	keywords = {Image registration,Motion correction,Real-time MRI,Scan-plane tracking},
+	number = {4},
+	pages = {924--932},
+	pmid = {9702895},
+	title = {{Dynamic scan-plane tracking using MR position monitoring}},
+	volume = {8},
+	year = {1998}
+}
+@article{Thesen2000,
+	abstract = {In functional magnetic resonance imaging (fMRI) head motion can corrupt the signal changes induced by brain activation. This paper describes a novel technique called Prospective Acquisition CorrEction (PACE) for reducing motion-induced effects on magnetization history. Full three-dimensional rigid body estimation of head movement is obtained by image-based motion detection to a high level of accuracy. Adjustment of slice position and orientation, as well as regridding of residual volume to volume motion, is performed in real-time during data acquisition. Phantom experiments demonstrate a high level of consistency (translation {\textless} 40 microm; rotation {\textless} 0.05 degrees ) for detected motion parameters. In vivo experiments were carried out and they showed a significant decrease of variance between successively acquired datasets compared to retrospective correction algorithms.},
+	author = {Thesen, Stefan and Heid, Oliver and Mueller, Edgar and Schad, Lothar R.},
+	doi = {10.1002/1522-2594(200009)44:3<457::AID-MRM17>3.0.CO;2-R},
+	file = {:C$\backslash$:/Users/dhen2714/Downloads/17{\_}ftp.pdf:pdf},
+	isbn = {0740-3194 (Print)$\backslash$n0740-3194 (Linking)},
+	issn = {07403194},
+	journal = {Magnetic Resonance in Medicine},
+	keywords = {Functional magnetic resonance imaging,Motion,Motion artefacts,Prospective correction,Real-time},
+	number = {3},
+	pages = {457--465},
+	pmid = {10975899},
+	title = {{Prospective Acquisition Correction for head motion with image-based tracking for real-time fMRI}},
+	volume = {44},
+	year = {2000}
+}
+@article{Herbst2012,
+	abstract = {Despite the existence of numerous motion correction methods, head motion during MRI continues to be a major source of artifacts and can greatly reduce image quality. This applies particularly to diffusion weighted imaging, where strong gradients are applied during long encoding periods. These are necessary to encode microscopic movements. However, they also make the technique highly sensitive to bulk motion. In this work, we present a prospective motion correction method where all applied gradients are adjusted continuously to compensate for changes of the object position and ensure the desired phase evolution in the image coordinate frame. Additionally, in phantom experiments this new technique is used to reproduce motion artifacts with high accuracy by changing the position of the imaging frame relative to the measured object. In vivo measurements demonstrate the validity of the new correction method.},
+	author = {Herbst, Michael and MacLaren, Julian and Weigel, Matthias and Korvink, Jan and Hennig, Juergen and Zaitsev, Maxim},
+	doi = {10.1002/mrm.23230},
+	file = {:C$\backslash$:/Users/dhen2714/Downloads/document(2).pdf:pdf},
+	isbn = {0740-3194},
+	issn = {07403194},
+	journal = {Magnetic Resonance in Medicine},
+	keywords = {continuous gradient updates,diffusion weighted imaging,motion tracking,prospective motion correction,real time},
+	number = {2},
+	pages = {326--338},
+	pmid = {22161984},
+	title = {{Prospective motion correction with continuous gradient updates in diffusion weighted imaging}},
+	volume = {67},
+	year = {2012}
+}
+@article{Yancey2011,
+	annote = {Cited By :15
+	
+	Export Date: 22 May 2017},
+	author = {Yancey, S E and Rotenberg, D J and Tam, F and Chiew, M and Ranieri, S and Biswas, L and Anderson, K J T and {Nicole Baker}, S and Wright, G A and Graham, S J},
+	doi = {10.1118/1.3583814},
+	journal = {Medical Physics},
+	number = {8},
+	pages = {4634--4646},
+	title = {{Spin-history artifact during functional MRI: Potential for adaptive correction}},
+	url = {https://www.scopus.com/inward/record.uri?eid=2-s2.0-79961036627{\&}doi=10.1118{\%}2F1.3583814{\&}partnerID=40{\&}md5=88a621897009265ea7cb23776833f450},
+	volume = {38},
+	year = {2011}
+}
+@article{Zahneisen2016a,
+	abstract = {PURPOSE: One potential barrier for using prospective motion correction (PMC) in the clinic is the unpredictable nature of a scan because of the direct interference with the imaging sequence. We demonstrate that a second set of "de-corrected" images can be reconstructed from a scan with PMC that show how images would have appeared without PMC enabled.$\backslash$n$\backslash$nTHEORY AND METHODS: For three-dimensional scans, the effects of PMC can be undone by performing a retrospective reconstruction based on the inverse of the transformation matrix used for real time gradient feedback. Retrospective reconstruction is performed using a generalized SENSE approach with continuous head motion monitored using a single-marker optical camera system.$\backslash$n$\backslash$nRESULTS: Reverse retrospective reconstruction is demonstrated for phantom and in vivo scans using an magnetization-prepared rapid gradient echo (MPRAGE) sequence including parallel and Partial Fourier acceleration.$\backslash$n$\backslash$nCONCLUSION: Reverse retrospective reconstruction can almost perfectly undo the effects of prospective feedback, and thereby provide a second image data set with the effects of motion correction removed. In case of correct feedback, one can directly compare the quality of the corrected with that of the uncorrected scan. Additionally, because erroneous feedback during PMC may introduce artifacts, it is possible to eliminate artifacts in a corrupted scan by reversing the false gradient updates. Magn Reson Med, 2015. {\textcopyright} 2015 Wiley Periodicals, Inc.},
+	annote = {NULL},
+	author = {Zahneisen, Benjamin and Keating, Brian and Singh, Aditya and Herbst, Michael and Ernst, Thomas},
+	doi = {10.1002/mrm.25830},
+	file = {:C$\backslash$:/Users/dhen2714/Downloads/Zahneisen{\_}et{\_}al-2016-Magnetic{\_}Resonance{\_}in{\_}Medicine.pdf:pdf},
+	isbn = {1522-2594 (Electronic)$\backslash$r0740-3194 (Linking)},
+	issn = {15222594},
+	journal = {Magnetic Resonance in Medicine},
+	keywords = {optical tracking,prospective motion correction,retrospective motion correction,tracking errors},
+	number = {6},
+	pages = {2341--2349},
+	pmid = {26140504},
+	title = {{Reverse retrospective motion correction}},
+	volume = {75},
+	year = {2016}
 }
 
